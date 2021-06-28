@@ -41,7 +41,8 @@ cmake -S$SOURCE_DIR/Fast-DDS -B"$PROJECT_TEMP_DIR/Fast-DDS" \
 -D foonathan_memory_DIR="$BUILT_PRODUCTS_DIR/share/foonathan_memory/cmake" \
 -D SQLITE3_SUPPORT=OFF \
 -D THIRDPARTY=ON \
--D COMPILE_EXAMPLES=OFF \
+-D COMPILE_EXAMPLES=ON \
+-D INSTALL_EXAMPLES=ON \
 -D COMPILE_TOOLS=OFF \
 -D SHM_TRANSPORT_DEFAULT=OFF \
 -D BUILD_DOCUMENTATION=OFF \
@@ -71,7 +72,8 @@ cmake -S$SOURCE_DIR/Fast-DDS -B"$PROJECT_TEMP_DIR/Fast-DDS" \
 -D foonathan_memory_DIR="$BUILT_PRODUCTS_DIR/share/foonathan_memory/cmake" \
 -D SQLITE3_SUPPORT=OFF \
 -D THIRDPARTY=ON \
--D COMPILE_EXAMPLES=OFF \
+-D COMPILE_EXAMPLES=ON \
+-D INSTALL_EXAMPLES=ON \
 -D COMPILE_TOOLS=OFF \
 -D SHM_TRANSPORT_DEFAULT=OFF \
 -D BUILD_DOCUMENTATION=OFF \
@@ -87,7 +89,7 @@ cmake --build "$PROJECT_TEMP_DIR/Fast-DDS" --config Release --target install
 fi
 
 if [ "$PLATFORM_NAME" = "iphoneos" ] || [ "$PLATFORM_NAME" = "iphonesimulator" ]; then
-export IPHONEOS_DEPLOYMENT_TARGET="9.0"
+export IPHONEOS_DEPLOYMENT_TARGET="10.0"
 cmake -S$SOURCE_DIR/memory -B"$PROJECT_TEMP_DIR/memory" \
 -D CMAKE_TOOLCHAIN_FILE="$ROOT_PATH/script/cmake/ios.toolchain.cmake" \
 -D CMAKE_INSTALL_PREFIX="$BUILT_PRODUCTS_DIR" \
@@ -98,7 +100,9 @@ cmake -S$SOURCE_DIR/memory -B"$PROJECT_TEMP_DIR/memory" \
 -D CMAKE_DEBUG_POSTFIX="" \
 -D FOONATHAN_MEMORY_BUILD_EXAMPLES=OFF \
 -D FOONATHAN_MEMORY_BUILD_TESTS=OFF \
+-D CMAKE_TRY_COMPILE_CONFIGURATION=Debug \
 -D FOONATHAN_MEMORY_BUILD_TOOLS=OFF \
+-D PLATFORM=OS64COMBINED \
 -G Xcode
 
 cmake --build "$PROJECT_TEMP_DIR/memory" --config Release --target install --
@@ -118,11 +122,11 @@ cmake -S$SOURCE_DIR/Fast-DDS -B"$PROJECT_TEMP_DIR/Fast-DDS" \
 -D COMPILE_TOOLS=OFF \
 -D SHM_TRANSPORT_DEFAULT=OFF \
 -D BUILD_DOCUMENTATION=OFF \
+-D PLATFORM=OS64COMBINED \
 -G Xcode
 
 cmake --build "$PROJECT_TEMP_DIR/Fast-DDS" --config Release --target install --
 fi
-rm -rf "$PROJECT_TEMP_DIR"
 
 pushd "$BUILT_PRODUCTS_DIR/lib" > /dev/null
 libtool -static -D -o libfastrtpsa.a libfastrtps.a libfastcdr.a libfoonathan_memory-0.6.2.a

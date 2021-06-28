@@ -7,7 +7,7 @@ set -e
 set -x
 
 if [[ $# > 0 ]]; then
-TAG=2.2.0
+TAG=$1
 else
 echo "Usage: fastrtps_build_xctframework.sh TAG commit"
 echo "where TAG is FasT-DDS version tag eg. 2.0.1"
@@ -57,23 +57,9 @@ source script/fastrtps_build_apple.sh
 # PLATFORM_NAME=macosx
 # EFFECTIVE_PLATFORM_NAME=""
 # ARCHS="x86_64 arm64"
-buildLibrary "$BUILD/macosx" "macosx" "" "x86_64 arm64"
-buildLibrary "$BUILD/maccatalyst" "macosx" "-maccatalyst" "x86_64 arm64"
-buildLibrary "$BUILD/iphoneos" "iphoneos" "" "armv7 armv7s arm64"
-buildLibrary "$BUILD/iphonesimulator" "iphonesimulator" "-iphonesimulator" "x86_64 arm64"
-
-xcodebuild -create-xcframework \
--library $BUILD/macosx/lib/libfastrtpsa.a \
--headers $BUILD/macosx/include \
--library $BUILD/iphoneos/lib/libfastrtpsa.a \
--headers $BUILD/iphoneos/include \
--library $BUILD/iphonesimulator/lib/libfastrtpsa.a \
--headers $BUILD/iphonesimulator/include \
--library $BUILD/maccatalyst/lib/libfastrtpsa.a \
--headers $BUILD/maccatalyst/include \
--output FastDDS.xcframework
-zip --recurse-paths -X --quiet $ZIPNAME FastDDS.xcframework
-rm -rf FastDDS.xcframework
+#buildLibrary "$BUILD/macosx" "macosx" "" "arm64"
+buildLibrary "$BUILD/iphoneos" "iphoneos" "" "arm64"
+#buildLibrary "$BUILD/iphonesimulator" "iphonesimulator" "-iphonesimulator" "x86_64 arm64"
 
 CHECKSUM=`shasum -a 256 -b $ZIPNAME | awk '{print $1}'`
 
