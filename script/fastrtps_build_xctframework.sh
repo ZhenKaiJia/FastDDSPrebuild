@@ -7,7 +7,7 @@ set -e
 set -x
 
 if [[ $# > 0 ]]; then
-TAG=$1
+TAG=2.2.0
 else
 echo "Usage: fastrtps_build_xctframework.sh TAG commit"
 echo "where TAG is FasT-DDS version tag eg. 2.0.1"
