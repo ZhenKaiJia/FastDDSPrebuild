@@ -18,7 +18,6 @@ return
 fi
 #export CMAKE_BUILD_PARALLEL_LEVEL=$(sysctl hw.ncpu | awk '{print $2}')
 
-rm -rf "$PROJECT_TEMP_DIR"
 if [ "$PLATFORM_NAME" = "macosx" ]; then
   if [ "$EFFECTIVE_PLATFORM_NAME" = "-maccatalyst" ]; then
 cmake -S$SOURCE_DIR/memory -B"$PROJECT_TEMP_DIR/memory" \
