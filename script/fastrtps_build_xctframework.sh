@@ -32,7 +32,7 @@ echo $TAG
 
 ZIPNAME=fastrtps-$TAG.xcframework.zip
 GIT_REMOTE_URL_UNFINISHED=`git config --get remote.origin.url|sed "s=^ssh://==; s=^https://==; s=:=/=; s/git@//; s/.git$//;"`
-DOWNLOAD_URL="https://github.com/DimaRU/FastDDSPrebuild/releases/download/2.1.0-whitelist/fastrtps-2.1.0-whitelist.xcframework.zip"
+DOWNLOAD_URL=https://$GIT_REMOTE_URL_UNFINISHED/releases/download/$TAG/$ZIPNAME
 
 export ROOT_PATH=$(cd "$(dirname "$0")/.."; pwd -P)
 pushd $ROOT_PATH > /dev/null
